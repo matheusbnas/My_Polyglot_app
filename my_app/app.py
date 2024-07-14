@@ -62,7 +62,7 @@ def transcribe_audio_to_text(speech_file_path: str, language_and_accent:str, ran
     convo = model.start_chat(history=[
     {
         "role": "user",
-        "parts": [genai.upload_file("audio/few_shot_pronunciation_error.mp3")]
+        "parts": [genai.upload_file("../audio/few_shot_pronunciation_error.mp3")]
     },
     {
         "role": "user",
@@ -81,7 +81,7 @@ def transcribe_audio_to_text(speech_file_path: str, language_and_accent:str, ran
     },
         {
         "role": "user",
-        "parts": [genai.upload_file("audio/few_shot_pronunciation_correct.mp3")]
+        "parts": [genai.upload_file("../audio/few_shot_pronunciation_correct.mp3")]
     },
     {
         "role": "user",
@@ -277,7 +277,7 @@ def main():
         if recorded_audio:
             if generate_phrase_bt==False:
                 st.write("Clique no microfone para mandar um audio falando a seguinte frase: \n" + "* " + st.session_state.generate_phrase_state)
-            audio_file="my_app/pronunciation_audio.mp3"
+            audio_file="../audio/pronunciation_audio.mp3"
             with open(audio_file, "wb") as f:
                 f.write(recorded_audio)
             text = transcribe_audio_to_text(speech_file_path = audio_file, language_and_accent = option_language, random_phrase_to_check_pronunciation = st.session_state.generate_phrase_state)
