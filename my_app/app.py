@@ -5,13 +5,14 @@ from gtts import gTTS
 import settings
 import os
 
-API_KEY = 'COLOQUE SUA API KEY AQUI'
+API_KEY = "CHAVE_API_GEMINI"
 
-genai.configure(api_key=API_KEY)
+#genai.configure(api_key=API_KEY)
+genai.configure(api_key=API_KEY,transport='rest')
 
 #removendo os arquivos iniciai
 def remove_files():
-    list_files_to_remove = ["my_app/pronunciation_audio.mp3","my_app/text_converted_to_audio.mp3"]
+    list_files_to_remove = ["audio/pronunciation_audio.mp3","audio/text_converted_to_audio.mp3"]
     for file_path in list_files_to_remove:
         if os.path.exists(file_path):
             os.remove(file_path)
@@ -61,7 +62,7 @@ def transcribe_audio_to_text(speech_file_path: str, language_and_accent:str, ran
     convo = model.start_chat(history=[
     {
         "role": "user",
-        "parts": [genai.upload_file("my_app/few_shot_pronunciation_error.mp3")]
+        "parts": [genai.upload_file("audio/few_shot_pronunciation_error.mp3")]
     },
     {
         "role": "user",
@@ -80,7 +81,7 @@ def transcribe_audio_to_text(speech_file_path: str, language_and_accent:str, ran
     },
         {
         "role": "user",
-        "parts": [genai.upload_file("my_app/few_shot_pronunciation_correct.mp3")]
+        "parts": [genai.upload_file("audio/few_shot_pronunciation_correct.mp3")]
     },
     {
         "role": "user",
@@ -188,7 +189,7 @@ def convert_text_to_audio(text_to_read_voice: str, language_text:str, language:s
     response = convo.last.text
     # print(response)
 
-    file_text_converted_to_audio = "my_app/text_converted_to_audio.mp3"
+    file_text_converted_to_audio = "../audio/text_converted_to_audio.mp3"
     my_text_converted_to_audio = gTTS(text=response, lang=language, tld=accent, slow=False)
     my_text_converted_to_audio.save(file_text_converted_to_audio)
 
@@ -201,7 +202,7 @@ def main():
 
     with st.sidebar:
 
-        st.image("my_app/logo_my_polyglot_app.png")
+        st.image("/home/matheus/repos_github/My_Polyglot_app/my_app/logo_my_polyglot_app.png")
 
         st.markdown("""
         ## Bem vindo ao *My Polyglot*.
